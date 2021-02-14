@@ -3,7 +3,6 @@ using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using System.Text;
 
 namespace Business.Concrete
@@ -17,26 +16,14 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
-        public void Add(Car entity)
+        public void Add(Car car)
         {
-            if (entity.Description.Length > 2 && entity.DailyPrice > 0)
-            {
-                _carDal.Add(entity);
-            }
-            else
-            {
-                Console.WriteLine("Car added failed!");
-            }
+            _carDal.Add(car);
         }
 
-        public void Delete(int id)
+        public void Delete(Car car)
         {
-            _carDal.Delete(c=>c.Id == id);
-        }
-
-        public Car Get(int id)
-        {
-            return _carDal.Get(c => c.Id == id);
+            _carDal.Delete(car);
         }
 
         public List<Car> GetAll()
@@ -44,19 +31,14 @@ namespace Business.Concrete
             return _carDal.GetAll();
         }
 
-        public List<Car> GetCarsByBrandId(int id)
+        public Car GetById(int id)
         {
-            return _carDal.GetCarsByBrandId(c => c.BrandId == id);
+            return _carDal.GetById(id);
         }
 
-        public List<Car> GetCarsByColorId(int id)
+        public void Update(Car car)
         {
-            return _carDal.GetCarsByColorId(c => c.ColorId == id);
-        }
-
-        public void Update(int id)
-        {
-            throw new NotImplementedException();
+            _carDal.Update(car);
         }
     }
 }
