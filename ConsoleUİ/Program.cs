@@ -12,40 +12,21 @@ namespace ConsoleUI
         {
             CarManager carManager = new CarManager(new EfCarDal());
 
-            foreach (var item in carManager.GetAll())
+            foreach (var car in carManager.GetCarDetails())
             {
-                Console.WriteLine("{0} --- {1} --- {2} --- {3} --- {4} --- {5}",
-                    item.Id, item.BrandId, item.ColorId, item.ModelYear, item.DailyPrice, item.Description);
+                Console.WriteLine("{0} -- {1} --- {2} --- {3}", car.CarName, car.BrandName, car.ColorName, car.DailyPrice);
             }
 
-            Console.WriteLine("-----------------------------");
+            Console.WriteLine("------------------------------------------");
 
-            int id;
-            id = Convert.ToInt32(Console.ReadLine());
+            //ColorManager colorManager = new ColorManager(new EfColorDal());
+            //colorManager.Delete(new Color { ColorId = 11, ColorName = "Green" });
 
-            foreach (var car in carManager.GetCarsByColorId(id))
+            BrandManager brandManager = new BrandManager(new EfBrandDal());
+            foreach (var brand in brandManager.GetAll())
             {
-                Console.WriteLine("{0} --- {1} --- {2} --- {3} --- {4} --- {5}",
-                    car.Id, car.BrandId, car.ColorId, car.ModelYear, car.DailyPrice, car.Description);
+                Console.WriteLine("{0} -- {1}", brand.BrandId, brand.BrandName);
             }
-
-            Console.WriteLine("-----------------------------");
-
-            carManager.Add(new Car 
-            {
-                BrandId = 2,
-                ColorId = 3,
-                DailyPrice = 14,
-                Description = "Petrol  Auto",
-                ModelYear = 2011
-            });
-
-            foreach (var item in carManager.GetAll())
-            {
-                Console.WriteLine("{0} --- {1} --- {2} --- {3} --- {4} --- {5}",
-                    item.Id, item.BrandId, item.ColorId, item.ModelYear, item.DailyPrice, item.Description);
-            }
-
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using System.Linq.Expressions;
+using Entities.DTOs;
 
 namespace DataAccess.Concrete.InMemory
 {
@@ -54,11 +55,21 @@ namespace DataAccess.Concrete.InMemory
             return _cars.SingleOrDefault(p => p.Id == id);
         }
 
+        public void GetCarDetails()
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(Car car)
         {
             var carToUpdate = _cars.SingleOrDefault(p => p.Id == car.Id);
             carToUpdate.BrandId = car.BrandId;
             //and other update process
+        }
+
+        List<CarDetailsDto> ICarDal.GetCarDetails()
+        {
+            throw new NotImplementedException();
         }
     }
 }
