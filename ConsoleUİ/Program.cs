@@ -12,20 +12,57 @@ namespace ConsoleUI
         {
             CarManager carManager = new CarManager(new EfCarDal());
 
-            foreach (var car in carManager.GetCarDetails())
+            var carResult = carManager.GetCarsDetails();
+
+            if (carResult.Success)
             {
-                Console.WriteLine("{0} -- {1} --- {2} --- {3}", car.CarName, car.BrandName, car.ColorName, car.DailyPrice);
+                foreach (var car in carResult.Data)
+                {
+                    Console.WriteLine("{0} -- {1} --- {2} --- {3}", car.CarName, car.BrandName, car.ColorName, car.DailyPrice);
+                }
+            }
+
+            else
+            {
+                Console.WriteLine(carResult.Message);
             }
 
             Console.WriteLine("------------------------------------------");
 
-            //ColorManager colorManager = new ColorManager(new EfColorDal());
-            //colorManager.Delete(new Color { ColorId = 11, ColorName = "Green" });
-
             BrandManager brandManager = new BrandManager(new EfBrandDal());
-            foreach (var brand in brandManager.GetAll())
+
+            var brandResult = brandManager.GetAll();
+
+            if (brandResult.Success)
             {
-                Console.WriteLine("{0} -- {1}", brand.BrandId, brand.BrandName);
+                foreach (var brand in brandResult.Data)
+                {
+                    Console.WriteLine("{0} -- {1}", brand.BrandId, brand.BrandName);
+                }
+            }
+
+            else
+            {
+                Console.WriteLine(brandResult.Message);
+            }
+
+            Console.WriteLine("------------------------------------------");
+
+            ColorManager colorManager = new ColorManager(new EfColorDal());
+
+            var colorResult = colorManager.GetAll();
+
+            if (colorResult.Success)
+            {
+                foreach (var color in colorResult.Data)
+                {
+                    Console.WriteLine("{0} -- {1}", color.ColorId, color.ColorName);
+                }
+            }
+
+            else
+            {
+                Console.WriteLine(colorResult.Message);
             }
         }
     }
