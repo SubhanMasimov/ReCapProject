@@ -16,11 +16,11 @@ namespace DataAccess.Concrete.InMemory
         public InMemoryCarDal()
         {
             _cars = new List<Car> {
-            new Car{Id=1,BrandId=1,ColorId=2,DailyPrice=750,ModelYear=2017,Description="Audi A4 dizel otomatik 'Siyah'"},
-            new Car{Id=2,BrandId=2,ColorId=2,DailyPrice=600,ModelYear=2019,Description="Ford Mondeo 'Siyah'"},
-            new Car{Id=3,BrandId=3,ColorId=3,DailyPrice=700,ModelYear=2018,Description="BMW 318i otomatik 'Mavi'"},
-            new Car{Id=4,BrandId=4,ColorId=4,DailyPrice=350,ModelYear=2014,Description="Renault Megane manuel 'Gri'"},
-            new Car{Id=5,BrandId=5,ColorId=1,DailyPrice=800,ModelYear=2016,Description="Mercedes c200d dizel otomatik 'Beyaz'"}
+            new Car{CarId=1,BrandId=1,ColorId=2,DailyPrice=750,ModelYear=2017,Description="Audi A4 dizel otomatik 'Siyah'"},
+            new Car{CarId=2,BrandId=2,ColorId=2,DailyPrice=600,ModelYear=2019,Description="Ford Mondeo 'Siyah'"},
+            new Car{CarId=3,BrandId=3,ColorId=3,DailyPrice=700,ModelYear=2018,Description="BMW 318i otomatik 'Mavi'"},
+            new Car{CarId=4,BrandId=4,ColorId=4,DailyPrice=350,ModelYear=2014,Description="Renault Megane manuel 'Gri'"},
+            new Car{CarId=5,BrandId=5,ColorId=1,DailyPrice=800,ModelYear=2016,Description="Mercedes c200d dizel otomatik 'Beyaz'"}
             };
         }
 
@@ -31,11 +31,11 @@ namespace DataAccess.Concrete.InMemory
 
         public void Delete(Car car)
         {
-            var carToDelete = _cars.SingleOrDefault(p => p.Id == car.Id);
+            var carToDelete = _cars.SingleOrDefault(p => p.CarId == car.CarId);
             _cars.Remove(carToDelete);
         }
 
-        public Car Get(Expression<Func<Car, bool>> filter)
+        public Car GetById(Expression<Func<Car, bool>> filter)
         {
             throw new NotImplementedException();
         }
@@ -52,7 +52,7 @@ namespace DataAccess.Concrete.InMemory
 
         public Car GetById(int id)
         {
-            return _cars.SingleOrDefault(p => p.Id == id);
+            return _cars.SingleOrDefault(p => p.CarId == id);
         }
 
         public void GetCarDetails()
@@ -62,7 +62,7 @@ namespace DataAccess.Concrete.InMemory
 
         public void Update(Car car)
         {
-            var carToUpdate = _cars.SingleOrDefault(p => p.Id == car.Id);
+            var carToUpdate = _cars.SingleOrDefault(p => p.CarId == car.CarId);
             carToUpdate.BrandId = car.BrandId;
             //and other update process
         }

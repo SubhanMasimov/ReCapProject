@@ -12,5 +12,6 @@ namespace Business.Constants
         public static string BrandsNoListed = "Brands can not listed.";
         public static string ColorsListed = "Colors listed.";
         public static string ColorsNoListed = "Colors can not listed.";
+        public static string CarIsNotAvailable = "Car is not available.";
     }
 }

@@ -50,7 +50,7 @@ namespace Business.Concrete
 
         public IDataResult<Brand> GetById(int id)
         {
-            return new SuccessDataResult<Brand>(_brandDal.Get(b => b.BrandId == id));
+            return new SuccessDataResult<Brand>(_brandDal.GetById(b => b.BrandId == id));
         }
 
         public IResult Update(Brand brand)

@@ -32,7 +32,7 @@ namespace Business.Concrete
 
         public IResult Delete(Car car)
         {
-            if (car.Id > 0)
+            if (car.CarId > 0)
             {
                 _carDal.Delete(car);
                 return new SuccessResult();
@@ -48,12 +48,12 @@ namespace Business.Concrete
 
         public IDataResult<Car> GetById(int id)
         {
-            return new SuccessDataResult<Car>(_carDal.Get(p => p.Id == id));
+            return new SuccessDataResult<Car>(_carDal.GetById(p => p.CarId == id));
         }
 
         public IDataResult<List<CarDetailsDto>> GetCarsDetails()
         {
-            if (DateTime.Now.Hour >= 21)
+            if (DateTime.Now.Hour <= 21)
             {
                 return new SuccessDataResult<List<CarDetailsDto>>(_carDal.GetCarDetails(), Messages.CarsListed);
             }
@@ -73,7 +73,7 @@ namespace Business.Concrete
 
         public IResult Update(Car car)
         {
-            if (car.Id > 0 && car.CarName.Length > 2)
+            if (car.CarId > 0 && car.CarName.Length > 2)
             {
                 _carDal.Update(car);
                 return new SuccessResult();

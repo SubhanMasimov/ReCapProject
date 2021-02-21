@@ -10,44 +10,36 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            CarManager carManager = new CarManager(new EfCarDal());
+            //CarManagerResultTest();
 
-            var carResult = carManager.GetCarsDetails();
+            //Console.WriteLine("------------------------------------------");
 
-            if (carResult.Success)
+            //BrandManagerResultTest();
+
+            //ColorManagerResultTest();
+
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+
+            var result = rentalManager.Add(new Rental { CarId = 5, CustomerId = 1, RentDate = DateTime.Now });
+
+            if (result.Success)
             {
-                foreach (var car in carResult.Data)
+                foreach (var rental in rentalManager.GetAll().Data)
                 {
-                    Console.WriteLine("{0} -- {1} --- {2} --- {3}", car.CarName, car.BrandName, car.ColorName, car.DailyPrice);
+                    Console.WriteLine("{0} -- {1} --- {2} --- {3} -- {4}", rental.RentalId, rental.CarId, rental.CustomerId, rental.RentDate, rental.ReturnDate);
                 }
             }
 
             else
             {
-                Console.WriteLine(carResult.Message);
+                Console.WriteLine(result.Message);
             }
 
-            Console.WriteLine("------------------------------------------");
+        }
 
-            BrandManager brandManager = new BrandManager(new EfBrandDal());
-
-            var brandResult = brandManager.GetAll();
-
-            if (brandResult.Success)
-            {
-                foreach (var brand in brandResult.Data)
-                {
-                    Console.WriteLine("{0} -- {1}", brand.BrandId, brand.BrandName);
-                }
-            }
-
-            else
-            {
-                Console.WriteLine(brandResult.Message);
-            }
-
-            Console.WriteLine("------------------------------------------");
-
+        #region Test Methods
+        private static void ColorManagerResultTest()
+        {
             ColorManager colorManager = new ColorManager(new EfColorDal());
 
             var colorResult = colorManager.GetAll();
@@ -65,5 +57,46 @@ namespace ConsoleUI
                 Console.WriteLine(colorResult.Message);
             }
         }
+
+        private static void BrandManagerResultTest()
+        {
+            BrandManager brandManager = new BrandManager(new EfBrandDal());
+
+            var brandResult = brandManager.GetAll();
+
+            if (brandResult.Success)
+            {
+                foreach (var brand in brandResult.Data)
+                {
+                    Console.WriteLine("{0} -- {1}", brand.BrandId, brand.BrandName);
+                }
+            }
+
+            else
+            {
+                Console.WriteLine(brandResult.Message);
+            }
+        }
+
+        private static void CarManagerResultTest()
+        {
+            CarManager carManager = new CarManager(new EfCarDal());
+
+            var carResult = carManager.GetCarsDetails();
+
+            if (carResult.Success)
+            {
+                foreach (var car in carResult.Data)
+                {
+                    Console.WriteLine("{0} -- {1} --- {2} --- {3}", car.CarName, car.BrandName, car.ColorName, car.DailyPrice);
+                }
+            }
+
+            else
+            {
+                Console.WriteLine(carResult.Message);
+            }
+        }
+        #endregion
     }
 }
