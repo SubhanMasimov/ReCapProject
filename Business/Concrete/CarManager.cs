@@ -1,9 +1,13 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -19,26 +23,18 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
+
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
-            if (car.Description.Length >= 2 && car.DailyPrice > 0)
-            {
-                _carDal.Add(car);
-                return new SuccessResult();
-            }
-
-            return new ErrorResult();
+            _carDal.Add(car);
+            return new SuccessResult();
         }
 
         public IResult Delete(Car car)
         {
-            if (car.CarId > 0)
-            {
-                _carDal.Delete(car);
-                return new SuccessResult();
-            }
-
-            return new ErrorResult();
+            _carDal.Delete(car);
+            return new SuccessResult();
         }
 
         public IDataResult<List<Car>> GetAll()
@@ -53,12 +49,7 @@ namespace Business.Concrete
 
         public IDataResult<List<CarDetailsDto>> GetCarsDetails()
         {
-            if (DateTime.Now.Hour <= 21)
-            {
-                return new SuccessDataResult<List<CarDetailsDto>>(_carDal.GetCarDetails(), Messages.CarsListed);
-            }
-
-            return new ErrorDataResult<List<CarDetailsDto>>(Messages.CarsNoListed);
+            return new SuccessDataResult<List<CarDetailsDto>>(_carDal.GetCarDetails(), Messages.CarsListed);
         }
 
         public IDataResult<List<Car>> GetCarsByBrandId(int id)
@@ -73,13 +64,8 @@ namespace Business.Concrete
 
         public IResult Update(Car car)
         {
-            if (car.CarId > 0 && car.CarName.Length > 2)
-            {
-                _carDal.Update(car);
-                return new SuccessResult();
-            }
-
-            return new ErrorResult();
+            _carDal.Update(car);
+            return new SuccessResult();
         }
     }
 }
